@@ -17,6 +17,7 @@ import com.example.baselibrary.base.BaseActivity;
 import com.example.baselibrary.dialog.MyAlertDialog;
 import com.example.baselibrary.ioc.ViewInject;
 import com.example.framelibrary.base.BaseSkinActivity;
+import com.example.framelibrary.base.DefaultNavigationBar;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,8 +28,6 @@ import java.io.IOException;
 
 public class MainActivity extends BaseSkinActivity implements View.OnClickListener {
 
-    @ViewInject(R.id.tv_test)
-    private TextView mTvTest;
 
     @ViewInject(R.id.btn_test)
     private Button mBtnTest;
@@ -93,7 +92,6 @@ public class MainActivity extends BaseSkinActivity implements View.OnClickListen
 
     @Override
     protected void initView() {
-        mTvTest.setText("hello ioc");
 
         mBtnTest.setOnClickListener(this);
 
@@ -102,12 +100,26 @@ public class MainActivity extends BaseSkinActivity implements View.OnClickListen
 
     @Override
     protected void initTitle() {
-
+        new DefaultNavigationBar.Builder(this)
+                .setBack(false)
+                .setTitle("主页")
+                .setRightText("说明")
+                .setRightClick(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(TestActivity.class);
+                    }
+                })
+                .create();
     }
 
     @Override
-    protected void setContentView() {
-        setContentView(R.layout.activity_main);
+    protected int bindLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    public void baseUse(View view) {
+        startActivity(TestActivity.class);
     }
 
     @Override

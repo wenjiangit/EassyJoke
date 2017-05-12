@@ -4,17 +4,16 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.alipay.euler.andfix.patch.PatchManager;
 import com.example.baselibrary.ExceptionCrashHandler;
 import com.example.baselibrary.utils.Utils;
 
 /**
+ *
  * Created by wenjian on 2017/4/30.
  */
 
 public class BaseApplication extends Application {
 
-    public static PatchManager mPatchManager;
 
     @Override
     public void onCreate() {

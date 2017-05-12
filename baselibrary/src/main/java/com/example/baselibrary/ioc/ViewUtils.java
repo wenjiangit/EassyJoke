@@ -95,7 +95,7 @@ public class ViewUtils {
                 e.printStackTrace();
                 try {
                     //发生异常则调用无参的方法
-                    mMethod.invoke(mObject, null);
+                    mMethod.invoke(mObject, (Object) null);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

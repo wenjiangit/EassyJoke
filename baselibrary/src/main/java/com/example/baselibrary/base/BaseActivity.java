@@ -1,5 +1,6 @@
 package com.example.baselibrary.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.example.baselibrary.ioc.ViewUtils;
 
 /**
+ * Activity的基类
  * Created by wenjian on 2017/4/30.
  */
 
@@ -18,9 +20,12 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected final String TAG = this.getClass().getSimpleName();
 
+    protected Context mActivity;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mActivity = this;
 
         setContentView();
         ViewUtils.inject(this);
