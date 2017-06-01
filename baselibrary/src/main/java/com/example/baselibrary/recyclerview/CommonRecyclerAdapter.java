@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     private LayoutInflater mInflater;
     private int mLayoutId;
     private MultiTypeSupport<T> mMultiTypeSupport;
+    private OnItemClickListener mListener;
 
 
     public CommonRecyclerAdapter(@NonNull Context context, List<T> data, @LayoutRes int layoutId) {
@@ -55,9 +57,8 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder,int position) {
         convert(holder, mData.get(position));
-
     }
 
     protected abstract void convert(ViewHolder holder, T item);
@@ -65,5 +66,32 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<View
     @Override
     public int getItemCount() {
         return mData != null ? mData.size() : 0;
+    }
+
+    public OnItemClickListener getItemClickListener() {
+        return mListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener;
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(RecyclerView.ViewHolder holder, int position);
+
+    }
+
+    public abstract static class ItemClickListener implements View.OnClickListener {
+
+        private int mPosition;
+
+        public ItemClickListener(int position) {
+            this.mPosition = position;
+        }
+
+        public int getPosition() {
+            return mPosition;
+        }
     }
 }

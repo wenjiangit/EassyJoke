@@ -17,13 +17,12 @@ public abstract class BaseSkinActivity extends BaseActivity {
 
     @Override
     protected void setContentView() {
-        LayoutInflater inflater = LayoutInflater.from(this);
+       /* LayoutInflater inflater = LayoutInflater.from(this);
         View rootView = inflater.inflate(R.layout.activity_base, null);
         ViewGroup contentView = (ViewGroup) rootView.findViewById(R.id.fl_content);
         View inflate = inflater.inflate(bindLayoutId(), contentView, false);
-        contentView.addView(inflate);
-
-        setContentView(rootView);
+        contentView.addView(inflate);*/
+        setContentView(bindLayoutId());
     }
 
     protected abstract int bindLayoutId();

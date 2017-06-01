@@ -1,30 +1,32 @@
 package com.example.wenjian.eassyjoke;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.baselibrary.ExceptionCrashHandler;
-import com.example.baselibrary.base.BaseActivity;
+import com.example.baselibrary.dao.DaoSupportFactory;
+import com.example.baselibrary.dao.IDaoSupport;
 import com.example.baselibrary.dialog.MyAlertDialog;
 import com.example.baselibrary.ioc.ViewInject;
 import com.example.framelibrary.base.BaseSkinActivity;
 import com.example.framelibrary.base.DefaultNavigationBar;
+import com.example.wenjian.eassyjoke.model.Person;
+import com.example.wenjian.eassyjoke.test.ISubject;
+import com.example.wenjian.eassyjoke.test.MyInvokeHandler;
+import com.example.wenjian.eassyjoke.test.RealSubject;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseSkinActivity implements View.OnClickListener {
 
@@ -136,6 +138,20 @@ public class MainActivity extends BaseSkinActivity implements View.OnClickListen
                 toast(editText.getText().toString().trim());
             }
         });
+
+        IDaoSupport<Person> support = DaoSupportFactory.getInstance().getDao(Person.class);
+        List<Person> persons = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            Person person = new Person();
+            person.setName("wenjian");
+            person.setAge(22 + i);
+            person.setMoney(20000 + i);
+            persons.add(person);
+        }
+        support.insert(persons);
+
+        List<Person> personList = support.queryAll();
+        Log.d(TAG, "personList: " + personList);
 
     }
 }

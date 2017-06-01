@@ -1,5 +1,6 @@
 package com.example.baselibrary.navigationbar;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -27,6 +28,12 @@ public abstract class AbsNavigationBar<P extends AbsNavigationBar.Builder.Naviga
         if (mParams == null) {
             return;
         }
+
+        if (mParams.mParent == null) {
+            ViewGroup decorView = (ViewGroup) ((Activity) mParams.mContext).getWindow().getDecorView();
+            mParams.mParent = (ViewGroup) decorView.getChildAt(0);
+        }
+
         mNavigationbar = LayoutInflater.from(mParams.mContext).inflate(bindLayoutId(), mParams.mParent, false);
         mParams.mParent.addView(mNavigationbar, 0);
         applyView();

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import com.example.baselibrary.navigationbar.AbsNavigationBar;
 import com.example.framelibrary.R;
@@ -77,8 +78,7 @@ public class DefaultNavigationBar extends AbsNavigationBar<DefaultNavigationBar.
         final NavigationParams P;
 
         public Builder(Activity activity) {
-            this(activity, (ViewGroup) activity.findViewById(android.R.id.content)
-                    .findViewById(R.id.fl_title_bar));
+            this(activity, null);
         }
 
         public Builder(Context context, ViewGroup parent) {
